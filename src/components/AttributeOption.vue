@@ -1,21 +1,22 @@
 <script setup>
 import {ref} from 'vue';
 
-const selected = ref(false);
-const props = defineProps(['value','description']);
+const model = defineModel();
+const emit = defineEmits(['attrSelected']);
 
 function onClick(){
-    selected.value = !selected.value;
+    emit('attrSelected');
 }
+
 </script>
 
 <template>
     
     <div
         class="my-2 d-flex border border-rounded align-items-center" 
-        @click="onClick()">
-            <h5 class="mx-4">{{ props.value }}</h5>
-            <p class="p-0 m-0">{{ props.description }}</p>
+        @click="onClick()" :class="{ 'attr-option-selected' :model.selected}">
+            <h5 class="mx-4">{{ model.label }}</h5>
+            <p class="p-0 m-0">{{ model.description }}</p>
     </div>
 
 </template>
@@ -26,5 +27,9 @@ function onClick(){
     }
     h5 {
         width: 7ch;
+    }
+
+    .attr-option-selected{
+        background-color: lavender;
     }
 </style>
